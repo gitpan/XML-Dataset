@@ -12,7 +12,7 @@ use warnings;
 use XML::LibXML::Reader;
 use Data::Alias;
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 our @ISA     = qw(Exporter);
 our @EXPORT  = qw(parse_using_profile);
 
@@ -927,7 +927,7 @@ XML::Dataset - Extracts XML into Perl Datasets based upon a simple text profile 
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -1012,18 +1012,18 @@ Parses XML based upon a profile.
 
 =head1 RATIONALE
 
-I often found myself developing, adjusting and manipulating perl code using a variery of packages to extract 
+I often found myself developing, adjusting and manipulating perl code using a variety of packages to extract 
 XML sources into logical groupings that were relevant to the underline data as opposed to a perl structure of an entire XML source.
 
 As well as the initial time in developing an appropriate construct to parse the source data, any future changes to the XML output 
 involved additional changes to the code base.  
 
 I wanted a simplified solution, one where I can leverage a simple markup language that I could operate on to provide the context
-of interest with the necessary maniupulation of data where desired.
+of interest with the necessary manipulation of data where desired.
 
 I investigated a number of options available in the perl community to simplify the overall
 process.  Whilst many excellent options are available, I did not find an option that provided
-the level of simplicity that I desired.  This module is a result of the effort to fulfil this requirement.
+the level of simplicity that I desired.  This module is a result of the effort to fulfill this requirement.
 
 =head1 EXAMPLES
 

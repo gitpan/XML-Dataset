@@ -12,7 +12,7 @@ use warnings;
 use XML::LibXML::Reader;
 use Data::Alias;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 our @ISA     = qw(Exporter);
 our @EXPORT  = qw(parse_using_profile);
 
@@ -927,7 +927,7 @@ XML::Dataset - Extracts XML into Perl Datasets based upon a simple text profile 
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
@@ -2455,11 +2455,29 @@ approach to parsing XML documents, resulting in an approach that is easier to pr
 an event based parser (SAX) and much more lightweight than a tree based parser (DOM) which
 loads the complete tree into memory.  
 
-This was a particular consideration in the choice of scaffoloding chosen for this module.
+This was a particular consideration in the choice of scaffolding chosen for this module.
 
 Data::Alias is utilised internally for lookback operations.  The module allows you to apply "aliasing semantics" 
 to a section of code, causing aliases to be made wherever Perl would normally make copies instead. You can use 
 this to improve efficiency and readability, when compared to using references.
+
+=head1 THANKS
+
+Thanks to the following for support, advice and feedback -
+
+=over 4
+
+=item Geoff Baldry
+
+=item Hayley Hunt
+
+=item Kordian Witek
+
+=item Matej Sip
+
+=item Sofia Blee
+
+=back
 
 =for :list * LXML::LibXML::Reader
 * LData::Alias

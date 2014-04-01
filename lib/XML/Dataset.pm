@@ -12,7 +12,7 @@ use warnings;
 use XML::LibXML::Reader;
 use Data::Alias;
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 our @ISA     = qw(Exporter);
 our @EXPORT  = qw(parse_using_profile);
 
@@ -927,7 +927,7 @@ XML::Dataset - Extracts XML into Perl Datasets based upon a simple text profile 
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -1140,59 +1140,7 @@ title_and_genre.  As per the example profile, multiple datasets can be specified
 through a space seperated list as per 'title' which is used for both title_and_author
 and title_and_genre.
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code
 
   my $profile = qq(
      catalog
@@ -1202,12 +1150,6 @@ and title_and_genre.
              title  = dataset:title_and_author dataset:title_and_genre
              genre  = dataset:title_and_genre
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -1258,59 +1200,7 @@ XML Attributes are treated in the profile as a sub level key/value in the profil
 following example depicts the inclusion of the attribute 'id' in the returned datasets. Note
 how id is indented under book and on the same level as author, title, genre etc.
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code
 
   my $profile = qq(
      catalog
@@ -1321,12 +1211,6 @@ how id is indented under book and on the same level as author, title, genre etc.
              title  = dataset:title_and_author dataset:title_and_genre
              genre  = dataset:title_and_genre
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -1393,59 +1277,7 @@ follows the format of __EXTERNAL_VALUE__ = <external_store>:<external_value>:<ta
 Optionally the __EXTERNAL_VALUE__ marker can receive an additional parameter of :<override_name> making the full
 syntax <external_store>:<external_value>:<target_dataset>:<override_name>
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code
 
   my $profile = qq(
      catalog
@@ -1458,12 +1290,6 @@ syntax <external_store>:<external_value>:<target_dataset>:<override_name>
              genre  = dataset:title_and_genre
              __EXTERNAL_VALUE__ = shop_information:number:title_and_author shop_information:number:title_and_genre
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -1529,59 +1355,7 @@ syntax <external_store>:<external_value>:<target_dataset>:<override_name>
 Dataset declarations can receive additional parameters through comma seperated inclusions.  In this example
 the XML element of 'genre' is renamed to 'style' during processing using the name declaration.
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code
 
   my $profile = qq(
      catalog
@@ -1594,12 +1368,6 @@ the XML element of 'genre' is renamed to 'style' during processing using the nam
              genre  = dataset:title_and_genre,name:style
              __EXTERNAL_VALUE__ = shop_information:number:title_and_author shop_information:number:title_and_genre
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -1667,59 +1435,7 @@ become shop_information_genre
 
 For consistency, in this example, the external information of name uses the additional optional parameter of :<override_name> as mentioned in Example 4 to override the external name 
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code
 
   my $profile = qq(
      catalog
@@ -1732,12 +1448,6 @@ For consistency, in this example, the external information of name uses the addi
              genre  = dataset:title_and_genre,prefix:shop_information_
              __EXTERNAL_VALUE__ = shop_information:number:title_and_author:shop_information_number shop_information:number:title_and_genre:shop_information_number
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -1806,59 +1516,7 @@ author is passed through a simple subroutine that returns an uppercase value.
 The parser expects methods specified by the process declaration to be available to the
 main namespace.
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code and Supporting Process Subroutine
 
   sub return_uc {
      return uc($_[0]);
@@ -1875,12 +1533,6 @@ main namespace.
              genre  = dataset:title_and_genre
              __EXTERNAL_VALUE__ = shop_information:number:title_and_author shop_information:number:title_and_genre
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -1956,59 +1608,7 @@ If there are any concerns about the consistency of the XML document then it is r
 that the __NEW_DATASET__ declaration is made within all respective blocks as part of the profile
 definition.
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code and Supporting Process Subroutine
 
   sub return_uc {
      return uc($_[0]);
@@ -2026,12 +1626,6 @@ definition.
              genre  = dataset:title_and_genre
              __EXTERNAL_VALUE__ = shop_information:number:title_and_author shop_information:number:title_and_genre
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -2123,65 +1717,7 @@ subsequently updating the default value and reflecting the value where applicabl
   information
     address = external_dataset:shop_information
 
-=head3 Code
-
-  use XML::Dataset;
-  use Data::Printer;
-
-  my $example_data = qq(<?xml version="1.0"?>
-  <catalog>
-     <shop number="1">
-        <book id="bk101">
-           <author>Gambardella, Matthew</author>
-           <title>XML Developer's Guide</title>
-           <genre>Computer</genre>
-           <price>44.95</price>
-           <publish_date>2000-10-01</publish_date>
-           <description>An in-depth look at creating applications 
-           with XML.</description>
-        </book>
-        <book id="bk102">
-           <author>Ralls, Kim</author>
-           <title>Midnight Rain</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-12-16</publish_date>
-           <description>A former architect battles corporate zombies, 
-           an evil sorceress, and her own childhood to become queen 
-           of the world.</description>
-        </book>
-        <information>
-          <address>Regents Street</address>
-        </information>
-     </shop>
-     <shop number="2">
-        <book id="bk103">
-           <author>Corets, Eva</author>
-           <title>Maeve Ascendant</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2000-11-17</publish_date>
-           <description>After the collapse of a nanotechnology 
-           society in England, the young survivors lay the 
-           foundation for a new society.</description>
-        </book>
-        <book id="bk104">
-           <author>Corets, Eva</author>
-           <title>Oberon's Legacy</title>
-           <genre>Fantasy</genre>
-           <price>5.95</price>
-           <publish_date>2001-03-10</publish_date>
-           <description>In post-apocalypse England, the mysterious 
-           agent known only as Oberon helps to create a new life 
-           for the inhabitants of London. Sequel to Maeve 
-           Ascendant.</description>
-        </book>
-        <information>
-          <address>Oxford Street</address>
-        </information>
-     </shop>
-  </catalog>
-  );
+=head3 Updated Profile Code and Supporting Process Subroutine
 
   sub return_uc {
      return uc($_[0]);
@@ -2202,12 +1738,6 @@ subsequently updating the default value and reflecting the value where applicabl
            information
              address = external_dataset:shop_information
   );
-
-  # Capture the output
-  my $output = parse_using_profile( $example_data, $profile ); 
-
-  # Print using Data::Printer
-  p $output;
 
 =head3 Output
 
@@ -2476,6 +2006,8 @@ Thanks to the following for support, advice and feedback -
 =item Matej Sip
 
 =item Sofia Blee
+
+=item Vivek Chhikara
 
 =back
 

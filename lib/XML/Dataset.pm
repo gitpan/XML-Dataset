@@ -12,7 +12,7 @@ use warnings;
 use XML::LibXML::Reader;
 use Data::Alias;
 
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 our @ISA     = qw(Exporter);
 our @EXPORT  = qw(parse_using_profile);
 
@@ -476,6 +476,8 @@ sub _process_data {
          #  on the constructor options
          #-------------------------------------------------------------------------------
          else {
+
+
             if ( $self->{warn_missing_profile_entry} ) {
                _log_xml_element_not_defined_in_profile(
                   {
@@ -484,6 +486,9 @@ sub _process_data {
                   }
                );
             }
+
+            # Skip to the next node
+            $node->next;
 
          }
       },
@@ -927,7 +932,7 @@ XML::Dataset - Extracts XML into Perl Datasets based upon a simple text profile 
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 
@@ -2003,11 +2008,11 @@ Thanks to the following for support, advice and feedback -
 
 =item Kordian Witek
 
-=item Matej Sip
+=item Matej Sip - <sip.matej@gmail.com>
 
 =item Sofia Blee
 
-=item Vivek Chhikara
+=item Vivek Chhikara - <chhikara.vivek@gmail.com>
 
 =back
 

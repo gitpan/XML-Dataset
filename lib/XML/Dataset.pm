@@ -12,7 +12,7 @@ use warnings;
 use XML::LibXML::Reader;
 use Data::Alias;
 
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 our @ISA     = qw(Exporter);
 our @EXPORT  = qw(parse_using_profile);
 
@@ -57,7 +57,7 @@ sub _process_record {
    #  If a 'prefix' entry is defined we want to prefix with a custom value, update
    #  the key name accordingly
    #-------------------------------------------------------------------------------
-   $name = defined $record->{prefix} ? ${record}->{prefix} . ${name} : $name;
+   $name = defined $record->{prefix} ? $record->{prefix} . ${name} : $name;
 
    #-------------------------------------------------------------------------------
    #  If a process declaration is made, pass the current value through the
@@ -298,7 +298,7 @@ sub _process_data {
                #-------------------------------------------------------------------------------
                #  Process all External Values
                #-------------------------------------------------------------------------------
-               for my $dataset ( @{ $self->{_profile}->{__NEW_EXTERNAL_VALUE_HOLDER__}->{record} } ) {
+               for my $dataset ( @{ $self->{_profile}->{__NEW_EXTERNAL_VALUE_HOLDER__}->{__record__} } ) {
                   my ( $ext_dataset, $ext_name ) = %{$dataset};
 
                   push @{ $self->{external_data}->{$ext_dataset}->{$ext_name} }, '';
@@ -448,8 +448,8 @@ sub _process_data {
                   #-------------------------------------------------------------------------------
                   # If the attribute is defined in the profile, process
                   #-------------------------------------------------------------------------------
-                  elsif ( defined $self->{_profile}->{ $node->name }->{record} ) {
-                     for my $record ( @{ $self->{_profile}->{ $node->name }->{record} } ) {
+                  elsif ( defined $self->{_profile}->{ $node->name }->{__record__} ) {
+                     for my $record ( @{ $self->{_profile}->{ $node->name }->{__record__} } ) {
                         $self->_process_record( $node->name, $node->value, $record );
                      }
                   }
@@ -496,8 +496,8 @@ sub _process_data {
                     # Not needed as attributes are processed within Elements
       },
       3 => sub {    # XML_READER_TYPE_TEXT
-         if ( defined $self->{_profile}->{'record'} ) {
-            for my $record ( @{ $self->{_profile}->{'record'} } ) {
+         if ( defined $self->{_profile}->{__record__} ) {
+            for my $record ( @{ $self->{_profile}->{__record__} } ) {
                $self->_process_record( $self->{_current_key}, $node->value, $record );
             }
          }
@@ -734,7 +734,7 @@ sub _expand_profile {
                   #-------------------------------------------------------------------------------
                   #  Push the hash_ref onto the profile
                   #-------------------------------------------------------------------------------
-                  push( @{ $current_profile_position->{$key}->{record} }, $hash_ref );
+                  push( @{ $current_profile_position->{$key}->{__record__} }, $hash_ref );
                }
             }
          }
@@ -932,7 +932,7 @@ XML::Dataset - Extracts XML into Perl Datasets based upon a simple text profile 
 
 =head1 VERSION
 
-version 0.005
+version 0.006
 
 =head1 SYNOPSIS
 
